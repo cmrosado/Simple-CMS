@@ -1,0 +1,26 @@
+<div class="subject list">
+	<h2>Subject</h2>
+	
+	<table class="listening" summary="Subject list">
+		<tr class="header">
+			<th>&nspd</th>
+			<th>Subject</th>
+			<th>Visible</th>
+			<th>Page</th>
+			<th>Action</th>
+		</tr>
+		<% @subjects.each do |subject| %>
+		</tr>
+		<td><%= subject.position %></td>
+		<td><%= subject.name %></td>
+		<td class="center"><%= subject.visible ? 'Yes' : 'No' %><td>
+		<td class="center"><%= subject.pages.size %></td>
+		<td class="actions">
+	    	<%= link_to("Show", {:action => 'show', :id => subject.id}, :class => 'Action show') %>
+			<%= link_to("Edit", '#', :class => 'action edit') %>
+			<%= link_to("Delete", '#', :class => 'action delete') %>
+			</td>
+		</tr>			
+		<% end %>
+		</table>
+</div>

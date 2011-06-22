@@ -1,0 +1,10 @@
+<%= error_messages_for(@subject) %>
+
+<table summary="Sections form fields">
+	<th>name</th>
+	<tr><td><%= f.text_field(:name) %></td></tr>
+	<th>Position</th>
+	<tr><td><%= f.select(:position, 1..@subject_count) %></td></tr>
+	<th>Visible</th>
+	<tr><td><%= f.check_box(:visible) %></td></tr>
+</table>

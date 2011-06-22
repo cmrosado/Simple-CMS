@@ -1,0 +1,26 @@
+<% @page_title = "Show List" %>
+
+<div class="subject list">
+	<h2>Subject</h2>
+	
+<%= link_to("Go back", {:action => 'show'}, :class => 'show-new') %>	
+	
+	<table class="listening" summary="Show list">
+		<tr class="header">
+			<th>&nbsp;</th>
+			<th>Subject</th>
+			<th>Visible</th>
+			<th>Page</th>
+			<th>Action</th>
+		</tr>
+		<%= @subject = Subject.find(params[:id]) %>
+		<tr>
+			<td><%= subject.position %></td>
+			<td><%= subject.name %></td>
+			<td class="center">
+				<%= subject.visible ? 'Yes' : 'No' %></td>
+			<td class="center">
+				<%= subject.pages.size %></td>
+		</tr>
+		</table>
+</div>

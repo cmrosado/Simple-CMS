@@ -1,3 +1,4 @@
+require 'digest/sha1'
 class AdminUser < ActiveRecord::Base
   # to configure a different table name
   # set_table_name("admin_users")
@@ -21,5 +22,13 @@ class AdminUser < ActiveRecord::Base
   validates_confirmation_of :email
 
   scope :named, lambda {|first,last| where(:first_name => first, :last_name => last)}
+
+  def self.make_salt(username="")
+    Digest::SHA1.hexdigest("Use #{username} with #{Time.now} to make salt")
+  end
+
+  def self.hash(password="", salt="")
+    Digest::SHA1.hexdigest("Put #{salt} on the #{password}")
+  end
   
 end

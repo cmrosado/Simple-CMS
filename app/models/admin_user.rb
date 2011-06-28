@@ -7,6 +7,8 @@ class AdminUser < ActiveRecord::Base
   has_many :section_edits
   has_many :sections, :through => :sections_edits
   
+  attr_accessor :password
+  
   email_regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   
   validates_presence_of :first_name
@@ -20,8 +22,18 @@ class AdminUser < ActiveRecord::Base
   validates_length_of :email, :maximum => 100
   validates_format_of :email, :with => email_regex
   validates_confirmation_of :email
+  
+  before_save :create_hashed_password
+  after_save :clear_password
 
   scope :named, lambda {|first,last| where(:first_name => first, :last_name => last)}
+  scope :sorted, order("admin_users.last_name ASC, admin_users.first_name ASC")
+
+  attr_protected :hashed_password, :salt
+  
+  def name
+    "#{first_name} #{last_name}"
+  end
 
   def self.make_salt(username="")
     Digest::SHA1.hexdigest("Use #{username} with #{Time.now} to make salt")
@@ -29,6 +41,22 @@ class AdminUser < ActiveRecord::Base
 
   def self.hash(password="", salt="")
     Digest::SHA1.hexdigest("Put #{salt} on the #{password}")
+  end
+  
+  private
+  
+  def create_hashed_password
+    #whenever :password has a value hashing is needed
+    unless password.blank?
+      #always use "self" when assigning values
+      self.salt = AdminUser.make_salt(username) if salt.blank?
+      self.hashed_password = AdminUser.hash_with_salt(password, salt)
+    end
+  end
+  
+  def clear_password
+    #for security and b/c hashing is not needed
+    self.password = nil
   end
   
 end

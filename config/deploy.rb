@@ -9,7 +9,7 @@ set :password, "mpwd3ploy"
 set :use_sudo, false
 
 set :application, "simple_cms"
-set :repository,  "git@github.com:cmrosado/simple_cms.git"
+set :repository,  "git@github.com:cmrosado/Simple-CMS.git"
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`

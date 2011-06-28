@@ -2,34 +2,34 @@
 # SQLite version 3.x
 # gem install sqlite3
 development:
-  adapter: mysql2
+  adapter: mysql
   encoding: utf8
   reconnect: false
   database: simple_cms_development
-  pool: 5
   username: simple@localhost
   password: secretpassword
-  socket: /var/run/mysqld/mysqld.sock
-
+  
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
+# for localhost
+# production: socket: /tmp/mysql.sock
+# production: reconnect: false
+# development: socket: /var/run/mysqld/mysqld.sock
+# test: socket: /tmp/mysql.sock
+
 test:
-  adapter: mysql2
+  adapter: mysql
   encoding: utf8
   reconnect: false
   database: simple_cms_test
-  pool: 5
   username: root
   password:
-  socket: /tmp/mysql.sock
   
 production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
+  adapter: mysql
   database: simple_cms_production
-  pool: 5
-  username: root
-  password:
-  socket: /tmp/mysql.sock
+  username: alpine_challenge
+  password: d23tJ6Dn
+  host: totaline.com
+  encoding: utf8
